@@ -23,6 +23,9 @@
       setInterval(function(){
         var image = document.getElementById('theimage');
         image.src = '';
+        // image.png alternates between redirecting to two sources every second
+        // This is a bit contrived, but there are a numbmer of file hosting services
+        // that exhibit similar behavior over an extended timeframe
         image.src = '/image.png';
       }, 1000);
     </script>
