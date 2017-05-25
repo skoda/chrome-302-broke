@@ -5,7 +5,9 @@
       body {
         max-width: 600px;
       }
-      pre
+      img {
+        height: 64px;
+      }
     </style>
   </head>
   <body>
@@ -22,11 +24,11 @@
     <script>
       setInterval(function(){
         var image = document.getElementById('theimage');
-        image.src = '';
+        image.src = 'fail.png';
         // image.png alternates between redirecting to two sources every second
         // This is a bit contrived, but there are a numbmer of file hosting services
         // that exhibit similar behavior over an extended timeframe
-        image.src = '/image.png';
+        setTimeout(function(){ image.src = '/image.png'; }, 20);
       }, 1000);
     </script>
   </body>
