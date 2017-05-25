@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>Chrome 302 Redirect Test</title>
+    <style>
+      body {
+        max-width: 600px;
+      }
+      pre
+    </style>
+  </head>
+  <body>
+    <img id="theimage" src="/image.png" alt="">
+    <p>The above image should be swapping between two images every second. If it isn't, this browser is caching a 302 redirect within a single page load that does not specify caching in its headers.</p>
+    <blockquote>
+      From HTTP protocol specifications:<br>
+      <br>
+      10.3.3 302 Found<br>
+      <br>
+      The requested resource resides temporarily under a different URI. Since the redirection might be altered on occasion, the client SHOULD continue to use the Request-URI for future requests. This response is only cacheable if indicated by a Cache-Control or Expires header field.
+    </blockquote>
+    <p>When published, May 25th 2017, this properly switches between the images in Safari, Version 10.1.1 (12603.2.4), it improperly shows only the first image as redirected in Chrome for Mac, Version 58.0.3029.110.</p>
+    <script>
+      setInterval(function(){
+        var image = document.getElementById('theimage');
+        image.src = '';
+        image.src = '/image.png';
+      }, 1000);
+    </script>
+  </body>
+</html>

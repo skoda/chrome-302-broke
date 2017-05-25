@@ -9,21 +9,40 @@ server.connection({
     port: 8000 
 });
 
-// Add the route
-server.route({
-    method: 'GET',
-    path:'/hello', 
-    handler: function (request, reply) {
 
-        return reply('hello world');
-    }
-});
 
-// Start the server
-server.start((err) => {
-
+server.register(require('inert'), (err) => {
     if (err) {
         throw err;
     }
-    console.log('Server running at:', server.info.uri);
+
+    // Add the '/hello' route
+    server.route({
+        method: 'GET',
+        path:'/image.png', 
+        handler: function (request, reply) {
+          var seconds = (new Date()).getSeconds(),
+              image = ((seconds % 2) == 0) ? '/mario.png' : '/luigi.png';
+            return reply().redirect(image);
+        }
+    });
+
+    // static files
+    server.route({
+      method: 'GET',
+      path: '/{path*}',
+      handler: function (request, reply) {
+        reply.file('./public' + request.path);
+      }
+    });
+
+    // Start the server
+    server.start((err) => {
+
+        if (err) {
+            throw err;
+        }
+
+        console.log('Server running at:', server.info.uri);
+    });
 });
